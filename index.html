@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MOSAIC | Manipulation in Cluttered Scenes</title>
+  <meta name="description" content="MOSAIC: a modular spatial- and obstacle-aware framework for robotic manipulation, augmenting pretrained VLA policies with semantic grounding, geometry, and obstacle-aware attention.">
+  <meta name="theme-color" content="#087f83">
+  <meta property="og:title" content="MOSAIC: Manipulation in Cluttered Scenes">
+  <meta property="og:description" content="Semantic grounding, object geometry, and obstacle-aware attention for pretrained vision-language-action policies.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <a class="wordmark" href="#" aria-label="MOSAIC home"><span class="mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>MOSAIC</a>
+    <nav aria-label="Main navigation"><a href="#overview">Overview</a><a href="#method">Method</a><a href="#results">Results</a></nav>
+  </header>
+  <main id="main">
+    <section class="hero wrap" aria-labelledby="paper-title">
+      <p class="eyebrow"><span></span> Vision · Language · Action</p>
+      <div class="hero-logo" aria-hidden="true">MOSAIC<span class="logo-dot">.</span></div>
+      <h1 id="paper-title"><span class="sr-only">MOSAIC: </span>Modular Obstacle and Spatial-Aware Framework for Manipulation In Cluttered Scenes</h1>
+      <div class="authors">
+        <a href="mailto:rshi@cs.toronto.edu">Richard Shi<sup>1,2*</sup></a>
+        <a href="mailto:mohammad.mahdavian1@huawei.com">Mohammad Mahdavian<sup>2*†</sup></a>
+        <a href="mailto:mma236@sfu.ca">Mehrdad Momeni Zadeh<sup>2,3*</sup></a>
+        <a href="mailto:mohammed.elmahgiubi1@huawei.com">Mohammed Elmahgiubi<sup>2</sup></a>
+        <a href="mailto:amir.rasouli@huawei.com">Amir Rasouli<sup>2</sup></a>
+      </div>
+      <div class="affiliations"><span><sup>1</sup> University of Toronto</span><span><sup>2</sup> Huawei Noah’s Ark Lab</span><span><sup>3</sup> Simon Fraser University</span></div>
+      <p class="author-notes">* Equal contribution <span>† Project lead and corresponding author</span></p>
+      <div class="hero-actions"><a class="button primary" href="assets/MOSAIC.pdf" target="_blank" rel="noopener">Read the paper <span aria-hidden="true">↗</span></a><a class="button secondary" href="#method">Explore the framework <span aria-hidden="true">↓</span></a></div>
+      <p class="release-note">Code and dataset will be released upon acceptance.</p>
+    </section>
+
+    <section id="overview" class="overview wrap" aria-labelledby="overview-title">
+      <div class="section-top"><p class="eyebrow">The idea</p><p class="small-note">Explicit scene understanding. Grounded actions.</p></div>
+      <h2 id="overview-title">Know what to move.<br>Understand what’s in the way.</h2>
+      <p class="intro">MOSAIC gives pretrained VLA policies explicit cues about the target, destination, and surrounding obstacles, helping guide manipulation in cluttered scenes.</p>
+      <figure class="overview-figure"><a href="assets/overview.png" target="_blank" rel="noopener" aria-label="Open framework overview at full resolution"><img src="assets/overview.webp" width="2556" height="763" alt="MOSAIC overview: image and language inputs produce target, destination, and obstacle masks. Object depth and learned obstacle attention are injected into the action expert to guide manipulation." fetchpriority="high"></a><figcaption><span><b>MOSAIC at a glance.</b> Semantic masks, object depth, and obstacle-aware attention connect scene understanding to action generation.</span><a href="assets/overview.pdf" target="_blank" rel="noopener">View figure PDF ↗</a></figcaption></figure>
+      <div class="role-key" aria-label="Semantic roles"><span><i class="target"></i>Target object</span><span><i class="destination"></i>Destination region</span><span><i class="obstacle"></i>Surrounding obstacles</span></div>
+    </section>
+
+    <section id="abstract" class="abstract-section" aria-labelledby="abstract-title"><div class="wrap abstract-layout"><div><p class="eyebrow">Research summary</p><h2 id="abstract-title">Abstract</h2></div><div class="abstract-copy">
+      <p>Vision-Language-Action (VLA) models have demonstrated strong performance in robotic manipulation, yet most rely primarily on 2D visual observations and language instructions, leaving scene geometry and obstacle relationships to be inferred implicitly. This limitation is particularly problematic in cluttered environments, where small spatial errors can lead to unintended contacts or collisions.</p>
+      <p>We propose MOSAIC, a modular spatial- and obstacle-aware framework that can be integrated with pretrained VLA policies to improve object-level scene understanding and action generation. Our method augments the VLA backbone with an auxiliary semantic grounding task that predicts role-specific masks for the target object, destination region, and surrounding obstacles. We further combine the target and destination masks with depth estimated from 3D scene reconstruction to construct role-specific geometric tokens that are injected directly into the action expert.</p>
+      <p>In addition, we propose obstacle-aware attention supervision that emphasizes obstacles near the robot body during task execution. The resulting attention features are subsequently injected into later action-expert layers to further guide action generation. Together, these components provide explicit semantic, geometric, and obstacle-aware cues while preserving the underlying pretrained VLA architecture.</p>
+      <p>We evaluate our framework on pretrained VLA model using the RoboPRO benchmark, including visual perturbation tests, and further validate it on real-world manipulation tasks. MOSAIC improves the success rate by <strong>5.1% in cluttered scenes</strong>, and by <strong>9.7% under visual perturbations</strong>, with gains of up to <strong>25.0% in the most challenging environment</strong>. We will release our code and dataset upon acceptance.</p>
+    </div></div></section>
+
+    <section id="method" class="method wrap" aria-labelledby="method-title">
+      <p class="eyebrow">Inside MOSAIC</p><h2 id="method-title">Three cues. One modular framework.</h2><p class="intro">Add semantic, geometric, and obstacle-aware information while preserving the underlying pretrained VLA architecture.</p>
+      <div class="method-steps">
+        <article><span class="step-number teal">01 / Semantics</span><h3>Ground the scene</h3><p>An auxiliary semantic grounding task predicts role-specific masks for the target object, destination region, and obstacles.</p></article>
+        <article><span class="step-number gold">02 / Geometry</span><h3>Bring depth into action</h3><p>Target and destination masks select reconstructed scene depth, creating role-specific geometric tokens for the action expert.</p></article>
+        <article><span class="step-number coral">03 / Attention</span><h3>Account for obstacles</h3><p>Training supervision emphasizes obstacles near the robot body. Learned attention features are injected into later action-expert layers.</p></article>
+      </div>
+      <figure class="architecture-figure"><a href="assets/framework.png" target="_blank" rel="noopener" aria-label="Open detailed MOSAIC architecture at full resolution"><img src="assets/framework.webp" width="2862" height="1794" alt="Detailed MOSAIC architecture showing multi-view semantic grounding, object depth extraction, geometry token fusion, training-only obstacle attention supervision, and attention injection into late action layers." loading="lazy"></a><figcaption><span><b>The complete architecture.</b> From multi-view observations and role-conditioned masks to geometry fusion, attention supervision, and action execution.</span><a href="assets/framework.pdf" target="_blank" rel="noopener">View figure PDF ↗</a></figcaption></figure>
+    </section>
+
+    <section id="results" class="results-section" aria-labelledby="results-title"><div class="wrap"><p class="eyebrow">Evaluation highlights</p><h2 id="results-title">Stronger performance in clutter.</h2><p class="intro">Built on π<sub>0.5</sub> and evaluated across four RoboPRO environments, with qualitative real-world manipulation experiments. Visual robustness tests vary lighting, blur, and pixel shifts.</p><div class="metrics">
+      <article><span class="metric">+5.1<span>pp</span></span><h3>Cluttered scenes</h3><p>Success rate: 52.7% → 57.8%</p></article>
+      <article><span class="metric">+9.7<span>pp</span></span><h3>Visual perturbations</h3><p>Success rate: 65.2% → 74.9%</p></article>
+      <article><span class="metric-pre">Largest gain</span><span class="metric">+25.0<span>pp</span></span><h3>Office · visual perturbations</h3><p>Success rate: 51.7% → 76.7%</p></article>
+    </div><p class="results-note">pp = percentage points, compared with the RoboPRO-finetuned π<sub>0.5</sub> baseline (Tables I–II). In cluttered scenes, collision-free success improves from 39.7% to 41.3%, while collision rate increases from 39.7% to 44.8%.</p></div></section>
+
+  </main>
+  <footer class="wrap"><a class="wordmark" href="#">MOSAIC<span class="logo-dot">.</span></a><p>Modular Obstacle and Spatial-Aware Manipulation</p><a href="#main">Back to top ↑</a></footer>
+</body>
+</html>
