@@ -16,7 +16,7 @@
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header">
     <a class="wordmark" href="#" aria-label="MOSAIC home"><span class="mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>MOSAIC</a>
-    <nav aria-label="Main navigation"><a href="#overview">Overview</a><a href="#videos">Videos</a><a href="#method">Method</a><a href="#results">Results</a></nav>
+    <nav aria-label="Main navigation"><a href="#overview">Overview</a><a href="#method">Method</a><a href="#videos">Videos</a><a href="#results">Results</a></nav>
   </header>
   <main id="main">
     <section class="hero wrap" aria-labelledby="paper-title">
@@ -44,6 +44,23 @@
       <div class="role-key" aria-label="Semantic roles"><span><i class="target"></i>Target object</span><span><i class="destination"></i>Destination region</span><span><i class="obstacle"></i>Surrounding obstacles</span></div>
     </section>
 
+<section id="abstract" class="abstract-section" aria-labelledby="abstract-title"><div class="wrap abstract-layout"><div><p class="eyebrow">Research summary</p><h2 id="abstract-title">Abstract</h2></div><div class="abstract-copy">
+      <p>Vision-Language-Action (VLA) models have demonstrated strong performance in robotic manipulation, yet most rely primarily on 2D visual observations and language instructions, leaving scene geometry and obstacle relationships to be inferred implicitly. This limitation is particularly problematic in cluttered environments, where small spatial errors can lead to unintended contacts or collisions.</p>
+      <p>We propose MOSAIC, a modular spatial- and obstacle-aware framework that can be integrated with pretrained VLA policies to improve object-level scene understanding and action generation. Our method augments the VLA backbone with an auxiliary semantic grounding task that predicts role-specific masks for the target object, destination region, and surrounding obstacles. We further combine the target and destination masks with depth estimated from 3D scene reconstruction to construct role-specific geometric tokens that are injected directly into the action expert.</p>
+      <p>In addition, we propose obstacle-aware attention supervision that emphasizes obstacles near the robot body during task execution. The resulting attention features are subsequently injected into later action-expert layers to further guide action generation. Together, these components provide explicit semantic, geometric, and obstacle-aware cues while preserving the underlying pretrained VLA architecture.</p>
+      <p>We evaluate our framework on pretrained VLA model using the RoboPRO benchmark, including visual perturbation tests, and further validate it on real-world manipulation tasks. MOSAIC improves the success rate by <strong>5.1% in cluttered scenes</strong>, and by <strong>9.7% under visual perturbations</strong>, with gains of up to <strong>25.0% in the most challenging environment</strong>. We will release our code and dataset upon acceptance.</p>
+    </div></div></section>
+
+    <section id="method" class="method wrap" aria-labelledby="method-title">
+      <p class="eyebrow">Inside MOSAIC</p><h2 id="method-title">Three cues. One modular framework.</h2><p class="intro">Add semantic, geometric, and obstacle-aware information while preserving the underlying pretrained VLA architecture.</p>
+      <div class="method-steps">
+        <article><span class="step-number teal">01 / Semantics</span><h3>Ground the scene</h3><p>An auxiliary semantic grounding task predicts role-specific masks for the target object, destination region, and obstacles.</p></article>
+        <article><span class="step-number gold">02 / Geometry</span><h3>Bring depth into action</h3><p>Target and destination masks select reconstructed scene depth, creating role-specific geometric tokens for the action expert.</p></article>
+        <article><span class="step-number coral">03 / Attention</span><h3>Account for obstacles</h3><p>Training supervision emphasizes obstacles near the robot body. Learned attention features are injected into later action-expert layers.</p></article>
+      </div>
+      <figure class="architecture-figure"><a href="assets/framework.png" target="_blank" rel="noopener" aria-label="Open detailed MOSAIC architecture at full resolution"><img src="assets/framework.webp" width="2862" height="1794" alt="Detailed MOSAIC architecture showing multi-view semantic grounding, object depth extraction, geometry token fusion, training-only obstacle attention supervision, and attention injection into late action layers." loading="lazy"></a><figcaption><span><b>The complete architecture.</b> From multi-view observations and role-conditioned masks to geometry fusion, attention supervision, and action execution.</span><a href="assets/framework.pdf" target="_blank" rel="noopener">View figure PDF ↗</a></figcaption></figure>
+    </section>
+
     <section id="videos" class="videos-section wrap" aria-labelledby="videos-title">
       <p class="eyebrow">MOSAIC in motion</p>
       <h2 id="videos-title">From scene understanding to action.</h2>
@@ -62,7 +79,7 @@
           <figcaption id="mask-video-caption"><span><b>Semantic mask-token attention.</b> How the action expert attends to target, destination, and obstacle tokens.</span><span class="video-duration">0:56</span></figcaption>
         </figure>
       </div>
-      <details class="attention-videos">
+      <details class="attention-videos" open>
         <summary>Explore the attention visualizations <span>2 videos</span></summary>
         <div class="video-grid">
           <figure class="video-card video-wide">
@@ -75,23 +92,6 @@
           </figure>
         </div>
       </details>
-    </section>
-
-    <section id="abstract" class="abstract-section" aria-labelledby="abstract-title"><div class="wrap abstract-layout"><div><p class="eyebrow">Research summary</p><h2 id="abstract-title">Abstract</h2></div><div class="abstract-copy">
-      <p>Vision-Language-Action (VLA) models have demonstrated strong performance in robotic manipulation, yet most rely primarily on 2D visual observations and language instructions, leaving scene geometry and obstacle relationships to be inferred implicitly. This limitation is particularly problematic in cluttered environments, where small spatial errors can lead to unintended contacts or collisions.</p>
-      <p>We propose MOSAIC, a modular spatial- and obstacle-aware framework that can be integrated with pretrained VLA policies to improve object-level scene understanding and action generation. Our method augments the VLA backbone with an auxiliary semantic grounding task that predicts role-specific masks for the target object, destination region, and surrounding obstacles. We further combine the target and destination masks with depth estimated from 3D scene reconstruction to construct role-specific geometric tokens that are injected directly into the action expert.</p>
-      <p>In addition, we propose obstacle-aware attention supervision that emphasizes obstacles near the robot body during task execution. The resulting attention features are subsequently injected into later action-expert layers to further guide action generation. Together, these components provide explicit semantic, geometric, and obstacle-aware cues while preserving the underlying pretrained VLA architecture.</p>
-      <p>We evaluate our framework on pretrained VLA model using the RoboPRO benchmark, including visual perturbation tests, and further validate it on real-world manipulation tasks. MOSAIC improves the success rate by <strong>5.1% in cluttered scenes</strong>, and by <strong>9.7% under visual perturbations</strong>, with gains of up to <strong>25.0% in the most challenging environment</strong>. We will release our code and dataset upon acceptance.</p>
-    </div></div></section>
-
-    <section id="method" class="method wrap" aria-labelledby="method-title">
-      <p class="eyebrow">Inside MOSAIC</p><h2 id="method-title">Three cues. One modular framework.</h2><p class="intro">Add semantic, geometric, and obstacle-aware information while preserving the underlying pretrained VLA architecture.</p>
-      <div class="method-steps">
-        <article><span class="step-number teal">01 / Semantics</span><h3>Ground the scene</h3><p>An auxiliary semantic grounding task predicts role-specific masks for the target object, destination region, and obstacles.</p></article>
-        <article><span class="step-number gold">02 / Geometry</span><h3>Bring depth into action</h3><p>Target and destination masks select reconstructed scene depth, creating role-specific geometric tokens for the action expert.</p></article>
-        <article><span class="step-number coral">03 / Attention</span><h3>Account for obstacles</h3><p>Training supervision emphasizes obstacles near the robot body. Learned attention features are injected into later action-expert layers.</p></article>
-      </div>
-      <figure class="architecture-figure"><a href="assets/framework.png" target="_blank" rel="noopener" aria-label="Open detailed MOSAIC architecture at full resolution"><img src="assets/framework.webp" width="2862" height="1794" alt="Detailed MOSAIC architecture showing multi-view semantic grounding, object depth extraction, geometry token fusion, training-only obstacle attention supervision, and attention injection into late action layers." loading="lazy"></a><figcaption><span><b>The complete architecture.</b> From multi-view observations and role-conditioned masks to geometry fusion, attention supervision, and action execution.</span><a href="assets/framework.pdf" target="_blank" rel="noopener">View figure PDF ↗</a></figcaption></figure>
     </section>
 
     <section id="results" class="results-section" aria-labelledby="results-title"><div class="wrap"><p class="eyebrow">Evaluation highlights</p><h2 id="results-title">Stronger performance in clutter.</h2><p class="intro">Built on π<sub>0.5</sub> and evaluated across four RoboPRO environments, with qualitative real-world manipulation experiments. Visual robustness tests vary lighting, blur, and pixel shifts.</p><div class="metrics">
