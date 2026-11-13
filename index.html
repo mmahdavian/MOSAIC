@@ -16,7 +16,7 @@
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header">
     <a class="wordmark" href="#" aria-label="MOSAIC home"><span class="mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>MOSAIC</a>
-    <nav aria-label="Main navigation"><a href="#overview">Overview</a><a href="#method">Method</a><a href="#results">Results</a></nav>
+    <nav aria-label="Main navigation"><a href="#overview">Overview</a><a href="#videos">Videos</a><a href="#method">Method</a><a href="#results">Results</a></nav>
   </header>
   <main id="main">
     <section class="hero wrap" aria-labelledby="paper-title">
@@ -32,7 +32,7 @@
       </div>
       <div class="affiliations"><span><sup>1</sup> Huawei Noah’s Ark Lab</span><span><sup>2</sup> University of Toronto</span><span><sup>3</sup> Simon Fraser University</span></div>
       <p class="author-notes">* Equal contribution <span>† Project lead and corresponding author</span></p>
-      <div class="hero-actions"><a class="button primary" href="#method">Explore the framework <span aria-hidden="true">↓</span></a></div>
+      <div class="hero-actions"><a class="button primary" href="#videos">Watch the demos <span aria-hidden="true">↓</span></a><a class="button secondary" href="#method">Explore the framework</a></div>
       <p class="release-note">Code and dataset will be released upon acceptance.</p>
     </section>
 
@@ -42,6 +42,39 @@
       <p class="intro">MOSAIC gives pretrained VLA policies explicit cues about the target, destination, and surrounding obstacles, helping guide manipulation in cluttered scenes.</p>
       <figure class="overview-figure"><a href="assets/overview.png" target="_blank" rel="noopener" aria-label="Open framework overview at full resolution"><img src="assets/overview.webp" width="2556" height="763" alt="MOSAIC overview: image and language inputs produce target, destination, and obstacle masks. Object depth and learned obstacle attention are injected into the action expert to guide manipulation." fetchpriority="high"></a><figcaption><span><b>MOSAIC at a glance.</b> Semantic masks, object depth, and obstacle-aware attention connect scene understanding to action generation.</span><a href="assets/overview.pdf" target="_blank" rel="noopener">View figure PDF ↗</a></figcaption></figure>
       <div class="role-key" aria-label="Semantic roles"><span><i class="target"></i>Target object</span><span><i class="destination"></i>Destination region</span><span><i class="obstacle"></i>Surrounding obstacles</span></div>
+    </section>
+
+    <section id="videos" class="videos-section wrap" aria-labelledby="videos-title">
+      <p class="eyebrow">MOSAIC in motion</p>
+      <h2 id="videos-title">From scene understanding to action.</h2>
+      <p class="intro">Real-world execution, benchmark comparisons, and a closer look at what the policy attends to.</p>
+      <div class="video-grid">
+        <figure class="video-card video-wide">
+          <video controls playsinline preload="none" poster="assets/videos/real-robot-coaster.jpg" aria-labelledby="robot-video-caption"><source src="assets/videos/real-robot-coaster.mp4" type="video/mp4">Your browser does not support embedded video. <a href="assets/videos/real-robot-coaster.mp4">Download the real-robot demo.</a></video>
+          <figcaption id="robot-video-caption"><span><b>Real-world manipulation.</b> Placing a cup on a coaster, with semantic masks and multiple camera views.</span><span class="video-duration">0:57</span></figcaption>
+        </figure>
+        <figure class="video-card">
+          <video controls playsinline preload="none" poster="assets/videos/robopro-comparison.jpg" aria-labelledby="comparison-video-caption"><source src="assets/videos/robopro-comparison.mp4" type="video/mp4">Your browser does not support embedded video. <a href="assets/videos/robopro-comparison.mp4">Download the RoboPRO comparison.</a></video>
+          <figcaption id="comparison-video-caption"><span><b>RoboPRO comparison.</b> Selected rollouts from the π<sub>0.5</sub> baseline and MOSAIC.</span><span class="video-duration">0:40</span></figcaption>
+        </figure>
+        <figure class="video-card">
+          <video controls playsinline preload="none" poster="assets/videos/mask-guided-intro.jpg" aria-labelledby="mask-video-caption"><source src="assets/videos/mask-guided-intro.mp4" type="video/mp4">Your browser does not support embedded video. <a href="assets/videos/mask-guided-intro.mp4">Download the mask-token introduction.</a></video>
+          <figcaption id="mask-video-caption"><span><b>Semantic mask-token attention.</b> How the action expert attends to target, destination, and obstacle tokens.</span><span class="video-duration">0:56</span></figcaption>
+        </figure>
+      </div>
+      <details class="attention-videos">
+        <summary>Explore the attention visualizations <span>2 videos</span></summary>
+        <div class="video-grid">
+          <figure class="video-card video-wide">
+            <video controls playsinline preload="none" poster="assets/videos/action-image.jpg" aria-labelledby="layers-video-caption"><source src="assets/videos/action-image.mp4" type="video/mp4">Your browser does not support embedded video. <a href="assets/videos/action-image.mp4">Download the all-layer visualization.</a></video>
+            <figcaption id="layers-video-caption"><span><b>Across all action-expert layers.</b> Action-to-image attention in π<sub>0.5</sub> and MOSAIC, with selected regions highlighted.</span><span class="video-duration">0:30</span></figcaption>
+          </figure>
+          <figure class="video-card video-wide">
+            <video controls playsinline preload="none" poster="assets/videos/attention.jpg" aria-labelledby="attention-video-caption"><source src="assets/videos/attention.mp4" type="video/mp4">Your browser does not support embedded video. <a href="assets/videos/attention.mp4">Download the early-layer visualization.</a></video>
+            <figcaption id="attention-video-caption"><span><b>A closer look at early attention.</b> Side-by-side attention maps from the first three action-expert layers.</span><span class="video-duration">0:30</span></figcaption>
+          </figure>
+        </div>
+      </details>
     </section>
 
     <section id="abstract" class="abstract-section" aria-labelledby="abstract-title"><div class="wrap abstract-layout"><div><p class="eyebrow">Research summary</p><h2 id="abstract-title">Abstract</h2></div><div class="abstract-copy">
